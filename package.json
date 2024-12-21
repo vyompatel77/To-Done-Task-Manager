@@ -1,0 +1,21 @@
+{
+  "name": "to-done",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"img/todone-logo.png\" /> </p> <h2 align=\"center\">The Only Todo List You Need</h2>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.15"
+  },
+  "dependencies": {
+    "flowbite": "^2.5.2"
+  }
+}

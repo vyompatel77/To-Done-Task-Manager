@@ -1,0 +1,2391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>todo.tests.test_views API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>todo.tests.test_views</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># MIT License
+
+# Copyright © 2024 Akarsh Reddy Eathamukkala
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy of 
+# this software and associated documentation files (the “Software”), to deal in 
+# the Software without restriction, including without limitation the rights to 
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+# of the Software, and to permit persons to whom the Software is furnished to 
+# do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in 
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+# IN THE SOFTWARE.
+
+from django.urls import reverse
+from django.test import TestCase, Client, RequestFactory
+from django.contrib.auth.models import User
+from todo.views import config, config_hook, delete_template, login_request, template_from_todo, template, delete_todo, index, getListTagsByUserid, removeListItem, addNewListItem, updateListItem, createNewTodoList, register_request, getListItemByName, getListItemById, markListItem, todo_from_template
+from django.utils import timezone
+from todo.models import List, ListItem, Template, TemplateItem, ListTags, SharedList
+from todo.forms import NewUserForm
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.messages import get_messages
+
+import json
+
+
+class TestViews(TestCase):
+    def setUp(self):
+        # Every test needs access to the client and request factory.
+        self.client = Client()
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username=&#39;jacob&#39;, email=&#39;jacob@…&#39;, password=&#39;top_secret&#39;)
+        self.anonymous_user = AnonymousUser()
+        # Config setup
+        config[&#34;darkMode&#34;] = False
+        config[&#34;primary_color&#34;] = &#39;#0fa662&#39;
+        config[&#34;hover_color&#34;] = &#34;#0b8f54&#34;
+
+    def testLogin(self):
+        request = self.factory.get(&#39;/login/&#39;)
+        request.user = self.user
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        print(request)
+        request.POST = post
+        response = login_request(request)
+        self.assertEqual(response.status_code, 200)
+
+    def testLogin_with_invalid_credentials(self):
+        response = self.client.post(reverse(&#39;todo:login&#39;), {
+            &#39;username&#39;: &#39;wronguser&#39;,
+            &#39;password&#39;: &#39;wrongpassword&#39;
+        })
+
+        # Check that the response is rendered to the correct template
+        self.assertTemplateUsed(response, &#39;todo/login.html&#39;)
+
+        # # Check that the form contains errors
+        form = response.context[&#39;login_form&#39;]
+        self.assertIsInstance(form, AuthenticationForm)
+
+        # Check that the error message is set
+        messages_list = list(response.wsgi_request._messages)
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(str(messages_list[0]), &#34;Invalid username or password.&#34;)
+        
+        # Ensure the user is not logged in
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def testLogin_with_invalid_form(self):
+        response = self.client.post(reverse(&#39;todo:login&#39;), {
+            &#39;username&#39;: &#39;&#39;,  # Invalid: empty username
+            &#39;password&#39;: &#39;&#39;   # Invalid: empty password
+        })
+
+        # Check that the response is rendered to the correct template
+        self.assertTemplateUsed(response, &#39;todo/login.html&#39;)
+
+        # Check that the form is instantiated correctly
+        form = response.context[&#39;login_form&#39;]
+        self.assertIsInstance(form, AuthenticationForm)
+
+        # Check that the form contains errors
+        self.assertFalse(form.is_valid())  # The form should have errors
+
+        # Ensure error messages are displayed
+        messages_list = list(get_messages(response.wsgi_request))
+        self.assertGreater(len(messages_list), 0)  # Ensure there is at least one message
+        self.assertIn(&#34;Invalid&#34;, str(messages_list[0]))  # Check for required field error
+
+        # Ensure the user is not logged in
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+        # Test specific form errors (if you want to check individual fields)
+        self.assertIn(&#39;username&#39;, str(messages_list[0]))  # Ensure &#39;username&#39; field has errors
+        self.assertIn(&#39;password&#39;, str(messages_list[0]))  # Ensure &#39;password&#39; field has errors
+
+    def testSavingTodoList(self):
+        response = self.client.get(reverse(&#39;todo:createNewTodoList&#39;))
+        self.assertEqual(response.status_code, 302)
+        # print(response)
+
+    def test_delete_todo_list(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+        ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = delete_todo(request)
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_todo_list_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = delete_todo(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_getListTagsByUserid(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        ListTags.objects.create(
+            user_id_id = self.user.id,
+            tag_name = &#39;test&#39;,
+            created_on = timezone.now()
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = getListTagsByUserid(request)
+        print(&#39;response:&#39;)
+        print(response)
+        self.assertIsNotNone(response)
+
+    def test_getListTagsByUserid_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = getListTagsByUserid(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+    
+    def test_index(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_index_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        response = index(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_template_from_todo_redirect(self):
+        client = self.client
+        response = client.get(reverse(&#39;todo:template_from_todo&#39;))
+        self.assertEquals(response.status_code, 302)
+
+    def test_template_from_todo_function(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id,
+        )
+        item = ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=True,
+        )
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template_from_todo(request)
+        self.assertEqual(response.status_code, 302)
+    
+    def test_template_from_todo_function_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template_from_todo(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_template_display(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        template_item = TemplateItem.objects.create(
+            item_text=&#34;test item&#34;,
+            created_on=timezone.now(),
+            template=new_template,
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now()
+        )
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template(request, 1)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_template_display_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template(request, 1)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+        
+    def test_removeListItem(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+
+        todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+        )
+
+        ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+
+        post = request.POST.copy()
+        # post[&#39;list_item_id&#39;] = 1
+        request.method = &#34;POST&#34;
+        request._body = json.dumps({ &#34;list_item_id&#34;: 1 }).encode(&#39;utf-8&#39;)
+        response = removeListItem(request)
+        print(response)
+        self.assertIsNotNone(response)
+        
+        
+    def test_NewUserForm(self):
+        form_data = { &#39;email&#39;: &#39;123@123.com&#39;, &#39;username&#39;: &#39;123&#39;, &#39;password1&#39;: &#39;K!35EGL&amp;g7#U&#39;, &#39;password2&#39;: &#39;K!35EGL&amp;g7#U&#39;}
+        form = NewUserForm(form_data)
+        self.assertTrue(form.is_valid())
+        
+    def test_addNewListItem(self):
+
+        todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+        )
+
+        params = { 
+            &#39;list_id&#39;: todo.id,
+            &#39;list_item_name&#39;: &#34;random&#34;, 
+            &#34;create_on&#34;: 1670292391,
+            &#34;due_date&#34;: &#34;2023-01-01&#34;,
+            &#34;tag_color&#34;: &#34;#f9f9f9&#34;,
+            &#34;item_text&#34;: &#34;&#34;,
+            &#34;is_done&#34;: False
+            }
+
+        request = self.factory.post(f&#39;/todo/&#39;, data=params, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        # request.method = &#34;POST&#34;
+        print(type(params))
+        # param = json.dumps(param,cls=DateTimeEncoder)
+        # request._body = json.dumps(params, separators=(&#39;,&#39;, &#39;:&#39;)).encode(&#39;utf-8&#39;)
+        temp = addNewListItem(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_updateListItem(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        todo = List.objects.create(
+            title_text=&#34;test list 2&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id,
+        )
+        item = ListItem.objects.create(
+            item_name=&#34;test item 2&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        post[&#39;note&#39;] = &#39;test note&#39;
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = updateListItem(request, item.id)
+        self.assertEqual(response.status_code, 302)
+        
+    def test_createNewTodoList(self):
+        test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                     &#39;create_on&#39; : 1670292391,
+                     &#39;list_tag&#39; : &#39;test_tag&#39;,
+                     &#39;shared_user&#39; : None,
+                     &#39;create_new_tag&#39; : True}
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = createNewTodoList(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_getListItemByName(self):
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+        ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        test_data = {&#39;list_id&#39; : &#39;1&#39;,
+                     &#39;list_item_name&#39; : &#34;test item&#34;
+                     }
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data,
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        response = getListItemByName(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_getListItemById(self):
+        todo = List.objects.create(
+            title_text=&#34;test list 3&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+        item = ListItem.objects.create(
+            item_name=&#34;test item 3&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        test_data = {&#39;list_id&#39; : str(todo.id),
+                     &#39;list_item_name&#39;: &#39;test item 3&#39;,
+                     &#39;list_item_id&#39;: str(item.id)
+                     }
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = getListItemById(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_markListItem(self):
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+
+        listItem = ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+
+        params = { 
+            &#39;list_id&#39;: todo.id,
+            &#39;list_item_name&#39;: listItem.item_name, 
+            &#34;create_on&#34;: 1670292391,
+            &#34;due_date&#34;: &#34;2023-01-01&#34;,
+            &#34;finish_on&#34;: 1670292392,
+            &#34;is_done&#34;: True,
+            &#34;list_item_id&#34;: listItem.id,
+            }
+
+        request = self.factory.post(f&#39;/todo/&#39;, data=params, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = markListItem(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_createNewTodoList2(self):
+        test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                     &#39;create_on&#39; : 1670292391,
+                     &#39;list_tag&#39; : &#39;test_tag&#39;,
+                     &#39;shared_user&#39; : &#39;someone&#39;,
+                     &#39;create_new_tag&#39; : True}
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = createNewTodoList(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_createNewTodoList3(self):
+        sharedUser = User.objects.create_user(
+            username=&#39;share&#39;, email=&#39;share@…&#39;, password=&#39;top_secret&#39;)
+        sharedList = SharedList.objects.create(
+            user = sharedUser,
+            shared_list_id = &#34;&#34;
+        )
+        
+        test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                     &#39;create_on&#39; : 1670292391,
+                     &#39;list_tag&#39; : &#39;test_tag&#39;,
+                     &#39;shared_user&#39; : &#39;share&#39;,
+                     &#39;create_new_tag&#39; : True}
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = createNewTodoList(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_todo_from_template(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        template_item = TemplateItem.objects.create(
+            item_text=&#34;test item&#34;,
+            created_on=timezone.now(),
+            template=new_template,
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now()
+        )
+        
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        post[&#39;template&#39;] = new_template.id
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = todo_from_template(request)
+        self.assertEqual(response.status_code, 302)
+
+    def test_login_request(self):
+        test_data = {&#39;username&#39; : &#39;jacob&#39;,
+                     &#39;password&#39; : &#39;top_secret&#39;}
+        request = self.factory.post(f&#39;/login/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        setattr(request, &#39;session&#39;, &#39;session&#39;)
+        setattr(request, &#39;_messages&#39;, FallbackStorage(request))
+        response = login_request(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_delete_template(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = delete_template(request, new_template.id)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/templates&#39;)
+
+    def test_delete_template_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = delete_template(request, new_template.id)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/login&#39;)
+
+    def test_delete_template_undefined(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        request.method = &#34;POST&#34;
+        response = delete_template(request, 9999)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/login&#39;)
+
+    def test_delete_template_undefined_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = delete_template(request, 9999)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/templates&#39;)
+  
+    def test_initial_config_state(self):
+        # Initial config state check
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+    def test_config_change_index(self): 
+        # Call config_hook and check if it toggles to dark mode on index page
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = config_hook(request, &#39;index&#39;)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:index&#39;))
+        self.assertTrue(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+        # Call config_hook again and check if it toggles back to light mode
+        response = config_hook(request, &#39;index&#39;)
+        
+        # Check config changes for dark mode disabled
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+        # Verify redirect URL again
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:index&#39;))
+
+    def test_config_change_login(self): 
+        # Call config_hook and check if it toggles to dark mode on login page
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = config_hook(request, &#39;login&#39;)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+        self.assertTrue(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+        # Call config_hook again and check if it toggles back to light mode
+        response = config_hook(request, &#39;login&#39;)
+        
+        # Check config changes for dark mode disabled
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+        # Verify redirect URL again
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_config_change_template(self): 
+        # Call config_hook and check if it toggles to dark mode on template page
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = config_hook(request, &#39;template&#39;)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:template&#39;))
+        self.assertTrue(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+        # Call config_hook again and check if it toggles back to light mode
+        response = config_hook(request, &#39;template&#39;)
+        
+        # Check config changes for dark mode disabled
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+        # Verify redirect URL again
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:template&#39;))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="todo.tests.test_views.TestViews"><code class="flex name class">
+<span>class <span class="ident">TestViews</span></span>
+<span>(</span><span>methodName='runTest')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Similar to TransactionTestCase, but use <code>transaction.atomic()</code> to achieve
+test isolation.</p>
+<p>In most situations, TestCase should be preferred to TransactionTestCase as
+it allows faster execution. However, there are some situations where using
+TransactionTestCase might be necessary (e.g. testing some transactional
+behavior).</p>
+<p>On database backends with no transaction support, TestCase behaves as
+TransactionTestCase.</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TestViews(TestCase):
+    def setUp(self):
+        # Every test needs access to the client and request factory.
+        self.client = Client()
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username=&#39;jacob&#39;, email=&#39;jacob@…&#39;, password=&#39;top_secret&#39;)
+        self.anonymous_user = AnonymousUser()
+        # Config setup
+        config[&#34;darkMode&#34;] = False
+        config[&#34;primary_color&#34;] = &#39;#0fa662&#39;
+        config[&#34;hover_color&#34;] = &#34;#0b8f54&#34;
+
+    def testLogin(self):
+        request = self.factory.get(&#39;/login/&#39;)
+        request.user = self.user
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        print(request)
+        request.POST = post
+        response = login_request(request)
+        self.assertEqual(response.status_code, 200)
+
+    def testLogin_with_invalid_credentials(self):
+        response = self.client.post(reverse(&#39;todo:login&#39;), {
+            &#39;username&#39;: &#39;wronguser&#39;,
+            &#39;password&#39;: &#39;wrongpassword&#39;
+        })
+
+        # Check that the response is rendered to the correct template
+        self.assertTemplateUsed(response, &#39;todo/login.html&#39;)
+
+        # # Check that the form contains errors
+        form = response.context[&#39;login_form&#39;]
+        self.assertIsInstance(form, AuthenticationForm)
+
+        # Check that the error message is set
+        messages_list = list(response.wsgi_request._messages)
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(str(messages_list[0]), &#34;Invalid username or password.&#34;)
+        
+        # Ensure the user is not logged in
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def testLogin_with_invalid_form(self):
+        response = self.client.post(reverse(&#39;todo:login&#39;), {
+            &#39;username&#39;: &#39;&#39;,  # Invalid: empty username
+            &#39;password&#39;: &#39;&#39;   # Invalid: empty password
+        })
+
+        # Check that the response is rendered to the correct template
+        self.assertTemplateUsed(response, &#39;todo/login.html&#39;)
+
+        # Check that the form is instantiated correctly
+        form = response.context[&#39;login_form&#39;]
+        self.assertIsInstance(form, AuthenticationForm)
+
+        # Check that the form contains errors
+        self.assertFalse(form.is_valid())  # The form should have errors
+
+        # Ensure error messages are displayed
+        messages_list = list(get_messages(response.wsgi_request))
+        self.assertGreater(len(messages_list), 0)  # Ensure there is at least one message
+        self.assertIn(&#34;Invalid&#34;, str(messages_list[0]))  # Check for required field error
+
+        # Ensure the user is not logged in
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+        # Test specific form errors (if you want to check individual fields)
+        self.assertIn(&#39;username&#39;, str(messages_list[0]))  # Ensure &#39;username&#39; field has errors
+        self.assertIn(&#39;password&#39;, str(messages_list[0]))  # Ensure &#39;password&#39; field has errors
+
+    def testSavingTodoList(self):
+        response = self.client.get(reverse(&#39;todo:createNewTodoList&#39;))
+        self.assertEqual(response.status_code, 302)
+        # print(response)
+
+    def test_delete_todo_list(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+        ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = delete_todo(request)
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_todo_list_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = delete_todo(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_getListTagsByUserid(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        ListTags.objects.create(
+            user_id_id = self.user.id,
+            tag_name = &#39;test&#39;,
+            created_on = timezone.now()
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = getListTagsByUserid(request)
+        print(&#39;response:&#39;)
+        print(response)
+        self.assertIsNotNone(response)
+
+    def test_getListTagsByUserid_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = getListTagsByUserid(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+    
+    def test_index(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_index_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        response = index(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_template_from_todo_redirect(self):
+        client = self.client
+        response = client.get(reverse(&#39;todo:template_from_todo&#39;))
+        self.assertEquals(response.status_code, 302)
+
+    def test_template_from_todo_function(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id,
+        )
+        item = ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=True,
+        )
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template_from_todo(request)
+        self.assertEqual(response.status_code, 302)
+    
+    def test_template_from_todo_function_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template_from_todo(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_template_display(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        template_item = TemplateItem.objects.create(
+            item_text=&#34;test item&#34;,
+            created_on=timezone.now(),
+            template=new_template,
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now()
+        )
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template(request, 1)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_template_display_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        post = request.POST.copy()  # to make it mutable
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        response = template(request, 1)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+        
+    def test_removeListItem(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+
+        todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+        )
+
+        ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+
+        post = request.POST.copy()
+        # post[&#39;list_item_id&#39;] = 1
+        request.method = &#34;POST&#34;
+        request._body = json.dumps({ &#34;list_item_id&#34;: 1 }).encode(&#39;utf-8&#39;)
+        response = removeListItem(request)
+        print(response)
+        self.assertIsNotNone(response)
+        
+        
+    def test_NewUserForm(self):
+        form_data = { &#39;email&#39;: &#39;123@123.com&#39;, &#39;username&#39;: &#39;123&#39;, &#39;password1&#39;: &#39;K!35EGL&amp;g7#U&#39;, &#39;password2&#39;: &#39;K!35EGL&amp;g7#U&#39;}
+        form = NewUserForm(form_data)
+        self.assertTrue(form.is_valid())
+        
+    def test_addNewListItem(self):
+
+        todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+        )
+
+        params = { 
+            &#39;list_id&#39;: todo.id,
+            &#39;list_item_name&#39;: &#34;random&#34;, 
+            &#34;create_on&#34;: 1670292391,
+            &#34;due_date&#34;: &#34;2023-01-01&#34;,
+            &#34;tag_color&#34;: &#34;#f9f9f9&#34;,
+            &#34;item_text&#34;: &#34;&#34;,
+            &#34;is_done&#34;: False
+            }
+
+        request = self.factory.post(f&#39;/todo/&#39;, data=params, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        # request.method = &#34;POST&#34;
+        print(type(params))
+        # param = json.dumps(param,cls=DateTimeEncoder)
+        # request._body = json.dumps(params, separators=(&#39;,&#39;, &#39;:&#39;)).encode(&#39;utf-8&#39;)
+        temp = addNewListItem(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_updateListItem(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        todo = List.objects.create(
+            title_text=&#34;test list 2&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id,
+        )
+        item = ListItem.objects.create(
+            item_name=&#34;test item 2&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        post[&#39;note&#39;] = &#39;test note&#39;
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = updateListItem(request, item.id)
+        self.assertEqual(response.status_code, 302)
+        
+    def test_createNewTodoList(self):
+        test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                     &#39;create_on&#39; : 1670292391,
+                     &#39;list_tag&#39; : &#39;test_tag&#39;,
+                     &#39;shared_user&#39; : None,
+                     &#39;create_new_tag&#39; : True}
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = createNewTodoList(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_getListItemByName(self):
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+        ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        test_data = {&#39;list_id&#39; : &#39;1&#39;,
+                     &#39;list_item_name&#39; : &#34;test item&#34;
+                     }
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data,
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        response = getListItemByName(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_getListItemById(self):
+        todo = List.objects.create(
+            title_text=&#34;test list 3&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+        item = ListItem.objects.create(
+            item_name=&#34;test item 3&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+        test_data = {&#39;list_id&#39; : str(todo.id),
+                     &#39;list_item_name&#39;: &#39;test item 3&#39;,
+                     &#39;list_item_id&#39;: str(item.id)
+                     }
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = getListItemById(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_markListItem(self):
+        todo = List.objects.create(
+            title_text=&#34;test list&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=self.user.id,
+        )
+
+        listItem = ListItem.objects.create(
+            item_name=&#34;test item&#34;,
+            item_text=&#34;This is a test item on a test list&#34;,
+            created_on=timezone.now(),
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now(),
+            list=todo,
+            is_done=False,
+        )
+
+        params = { 
+            &#39;list_id&#39;: todo.id,
+            &#39;list_item_name&#39;: listItem.item_name, 
+            &#34;create_on&#34;: 1670292391,
+            &#34;due_date&#34;: &#34;2023-01-01&#34;,
+            &#34;finish_on&#34;: 1670292392,
+            &#34;is_done&#34;: True,
+            &#34;list_item_id&#34;: listItem.id,
+            }
+
+        request = self.factory.post(f&#39;/todo/&#39;, data=params, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = markListItem(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_createNewTodoList2(self):
+        test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                     &#39;create_on&#39; : 1670292391,
+                     &#39;list_tag&#39; : &#39;test_tag&#39;,
+                     &#39;shared_user&#39; : &#39;someone&#39;,
+                     &#39;create_new_tag&#39; : True}
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = createNewTodoList(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_createNewTodoList3(self):
+        sharedUser = User.objects.create_user(
+            username=&#39;share&#39;, email=&#39;share@…&#39;, password=&#39;top_secret&#39;)
+        sharedList = SharedList.objects.create(
+            user = sharedUser,
+            shared_list_id = &#34;&#34;
+        )
+        
+        test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                     &#39;create_on&#39; : 1670292391,
+                     &#39;list_tag&#39; : &#39;test_tag&#39;,
+                     &#39;shared_user&#39; : &#39;share&#39;,
+                     &#39;create_new_tag&#39; : True}
+        request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        temp = createNewTodoList(request)
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+        
+    def test_todo_from_template(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        template_item = TemplateItem.objects.create(
+            item_text=&#34;test item&#34;,
+            created_on=timezone.now(),
+            template=new_template,
+            finished_on=timezone.now(),
+            tag_color=&#34;#f9f9f9&#34;,
+            due_date=timezone.now()
+        )
+        
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        post[&#39;template&#39;] = new_template.id
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = todo_from_template(request)
+        self.assertEqual(response.status_code, 302)
+
+    def test_login_request(self):
+        test_data = {&#39;username&#39; : &#39;jacob&#39;,
+                     &#39;password&#39; : &#39;top_secret&#39;}
+        request = self.factory.post(f&#39;/login/&#39;, data=test_data, 
+                                content_type=&#34;application/json&#34;)
+        request.user = self.user
+        setattr(request, &#39;session&#39;, &#39;session&#39;)
+        setattr(request, &#39;_messages&#39;, FallbackStorage(request))
+        response = login_request(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_delete_template(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = delete_template(request, new_template.id)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/templates&#39;)
+
+    def test_delete_template_not_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        new_template = Template.objects.create(
+            title_text=&#34;test template&#34;,
+            created_on=timezone.now(),
+            updated_on=timezone.now(),
+            user_id_id=request.user.id
+        )
+        post = request.POST.copy()
+        post[&#39;todo&#39;] = 1
+        request.POST = post
+        request.method = &#34;POST&#34;
+        response = delete_template(request, new_template.id)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/login&#39;)
+
+    def test_delete_template_undefined(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.anonymous_user
+        request.method = &#34;POST&#34;
+        response = delete_template(request, 9999)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/login&#39;)
+
+    def test_delete_template_undefined_logged_in(self):
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = delete_template(request, 9999)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, &#39;/templates&#39;)
+  
+    def test_initial_config_state(self):
+        # Initial config state check
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+    def test_config_change_index(self): 
+        # Call config_hook and check if it toggles to dark mode on index page
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = config_hook(request, &#39;index&#39;)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:index&#39;))
+        self.assertTrue(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+        # Call config_hook again and check if it toggles back to light mode
+        response = config_hook(request, &#39;index&#39;)
+        
+        # Check config changes for dark mode disabled
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+        # Verify redirect URL again
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:index&#39;))
+
+    def test_config_change_login(self): 
+        # Call config_hook and check if it toggles to dark mode on login page
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = config_hook(request, &#39;login&#39;)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+        self.assertTrue(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+        # Call config_hook again and check if it toggles back to light mode
+        response = config_hook(request, &#39;login&#39;)
+        
+        # Check config changes for dark mode disabled
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+        # Verify redirect URL again
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+
+    def test_config_change_template(self): 
+        # Call config_hook and check if it toggles to dark mode on template page
+        request = self.factory.get(&#39;/todo/&#39;)
+        request.user = self.user
+        request.method = &#34;POST&#34;
+        response = config_hook(request, &#39;template&#39;)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:template&#39;))
+        self.assertTrue(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+        # Call config_hook again and check if it toggles back to light mode
+        response = config_hook(request, &#39;template&#39;)
+        
+        # Check config changes for dark mode disabled
+        self.assertFalse(config[&#34;darkMode&#34;])
+        self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+        self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+        # Verify redirect URL again
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse(&#39;todo:template&#39;))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>django.test.testcases.TestCase</li>
+<li>django.test.testcases.TransactionTestCase</li>
+<li>django.test.testcases.SimpleTestCase</li>
+<li>unittest.case.TestCase</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="todo.tests.test_views.TestViews.setUp"><code class="name flex">
+<span>def <span class="ident">setUp</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Hook method for setting up the test fixture before exercising it.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setUp(self):
+    # Every test needs access to the client and request factory.
+    self.client = Client()
+    self.factory = RequestFactory()
+    self.user = User.objects.create_user(
+        username=&#39;jacob&#39;, email=&#39;jacob@…&#39;, password=&#39;top_secret&#39;)
+    self.anonymous_user = AnonymousUser()
+    # Config setup
+    config[&#34;darkMode&#34;] = False
+    config[&#34;primary_color&#34;] = &#39;#0fa662&#39;
+    config[&#34;hover_color&#34;] = &#34;#0b8f54&#34;</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.testLogin"><code class="name flex">
+<span>def <span class="ident">testLogin</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testLogin(self):
+    request = self.factory.get(&#39;/login/&#39;)
+    request.user = self.user
+    post = request.POST.copy()  # to make it mutable
+    post[&#39;todo&#39;] = 1
+    print(request)
+    request.POST = post
+    response = login_request(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.testLogin_with_invalid_credentials"><code class="name flex">
+<span>def <span class="ident">testLogin_with_invalid_credentials</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testLogin_with_invalid_credentials(self):
+    response = self.client.post(reverse(&#39;todo:login&#39;), {
+        &#39;username&#39;: &#39;wronguser&#39;,
+        &#39;password&#39;: &#39;wrongpassword&#39;
+    })
+
+    # Check that the response is rendered to the correct template
+    self.assertTemplateUsed(response, &#39;todo/login.html&#39;)
+
+    # # Check that the form contains errors
+    form = response.context[&#39;login_form&#39;]
+    self.assertIsInstance(form, AuthenticationForm)
+
+    # Check that the error message is set
+    messages_list = list(response.wsgi_request._messages)
+    self.assertEqual(len(messages_list), 1)
+    self.assertEqual(str(messages_list[0]), &#34;Invalid username or password.&#34;)
+    
+    # Ensure the user is not logged in
+    self.assertFalse(response.wsgi_request.user.is_authenticated)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.testLogin_with_invalid_form"><code class="name flex">
+<span>def <span class="ident">testLogin_with_invalid_form</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testLogin_with_invalid_form(self):
+    response = self.client.post(reverse(&#39;todo:login&#39;), {
+        &#39;username&#39;: &#39;&#39;,  # Invalid: empty username
+        &#39;password&#39;: &#39;&#39;   # Invalid: empty password
+    })
+
+    # Check that the response is rendered to the correct template
+    self.assertTemplateUsed(response, &#39;todo/login.html&#39;)
+
+    # Check that the form is instantiated correctly
+    form = response.context[&#39;login_form&#39;]
+    self.assertIsInstance(form, AuthenticationForm)
+
+    # Check that the form contains errors
+    self.assertFalse(form.is_valid())  # The form should have errors
+
+    # Ensure error messages are displayed
+    messages_list = list(get_messages(response.wsgi_request))
+    self.assertGreater(len(messages_list), 0)  # Ensure there is at least one message
+    self.assertIn(&#34;Invalid&#34;, str(messages_list[0]))  # Check for required field error
+
+    # Ensure the user is not logged in
+    self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    # Test specific form errors (if you want to check individual fields)
+    self.assertIn(&#39;username&#39;, str(messages_list[0]))  # Ensure &#39;username&#39; field has errors
+    self.assertIn(&#39;password&#39;, str(messages_list[0]))  # Ensure &#39;password&#39; field has errors</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.testSavingTodoList"><code class="name flex">
+<span>def <span class="ident">testSavingTodoList</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testSavingTodoList(self):
+    response = self.client.get(reverse(&#39;todo:createNewTodoList&#39;))
+    self.assertEqual(response.status_code, 302)
+    # print(response)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_NewUserForm"><code class="name flex">
+<span>def <span class="ident">test_NewUserForm</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_NewUserForm(self):
+    form_data = { &#39;email&#39;: &#39;123@123.com&#39;, &#39;username&#39;: &#39;123&#39;, &#39;password1&#39;: &#39;K!35EGL&amp;g7#U&#39;, &#39;password2&#39;: &#39;K!35EGL&amp;g7#U&#39;}
+    form = NewUserForm(form_data)
+    self.assertTrue(form.is_valid())</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_addNewListItem"><code class="name flex">
+<span>def <span class="ident">test_addNewListItem</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_addNewListItem(self):
+
+    todo = List.objects.create(
+    title_text=&#34;test list&#34;,
+    created_on=timezone.now(),
+    updated_on=timezone.now(),
+    user_id_id=self.user.id,
+    )
+
+    params = { 
+        &#39;list_id&#39;: todo.id,
+        &#39;list_item_name&#39;: &#34;random&#34;, 
+        &#34;create_on&#34;: 1670292391,
+        &#34;due_date&#34;: &#34;2023-01-01&#34;,
+        &#34;tag_color&#34;: &#34;#f9f9f9&#34;,
+        &#34;item_text&#34;: &#34;&#34;,
+        &#34;is_done&#34;: False
+        }
+
+    request = self.factory.post(f&#39;/todo/&#39;, data=params, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    # request.method = &#34;POST&#34;
+    print(type(params))
+    # param = json.dumps(param,cls=DateTimeEncoder)
+    # request._body = json.dumps(params, separators=(&#39;,&#39;, &#39;:&#39;)).encode(&#39;utf-8&#39;)
+    temp = addNewListItem(request)
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_config_change_index"><code class="name flex">
+<span>def <span class="ident">test_config_change_index</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_config_change_index(self): 
+    # Call config_hook and check if it toggles to dark mode on index page
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    request.method = &#34;POST&#34;
+    response = config_hook(request, &#39;index&#39;)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:index&#39;))
+    self.assertTrue(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+    # Call config_hook again and check if it toggles back to light mode
+    response = config_hook(request, &#39;index&#39;)
+    
+    # Check config changes for dark mode disabled
+    self.assertFalse(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+    # Verify redirect URL again
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:index&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_config_change_login"><code class="name flex">
+<span>def <span class="ident">test_config_change_login</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_config_change_login(self): 
+    # Call config_hook and check if it toggles to dark mode on login page
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    request.method = &#34;POST&#34;
+    response = config_hook(request, &#39;login&#39;)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))
+    self.assertTrue(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+    # Call config_hook again and check if it toggles back to light mode
+    response = config_hook(request, &#39;login&#39;)
+    
+    # Check config changes for dark mode disabled
+    self.assertFalse(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+    # Verify redirect URL again
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_config_change_template"><code class="name flex">
+<span>def <span class="ident">test_config_change_template</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_config_change_template(self): 
+    # Call config_hook and check if it toggles to dark mode on template page
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    request.method = &#34;POST&#34;
+    response = config_hook(request, &#39;template&#39;)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:template&#39;))
+    self.assertTrue(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#000000&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#cccccc&#39;)
+
+    # Call config_hook again and check if it toggles back to light mode
+    response = config_hook(request, &#39;template&#39;)
+    
+    # Check config changes for dark mode disabled
+    self.assertFalse(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)
+
+    # Verify redirect URL again
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:template&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_createNewTodoList"><code class="name flex">
+<span>def <span class="ident">test_createNewTodoList</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_createNewTodoList(self):
+    test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                 &#39;create_on&#39; : 1670292391,
+                 &#39;list_tag&#39; : &#39;test_tag&#39;,
+                 &#39;shared_user&#39; : None,
+                 &#39;create_new_tag&#39; : True}
+    request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    temp = createNewTodoList(request)
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_createNewTodoList2"><code class="name flex">
+<span>def <span class="ident">test_createNewTodoList2</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_createNewTodoList2(self):
+    test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                 &#39;create_on&#39; : 1670292391,
+                 &#39;list_tag&#39; : &#39;test_tag&#39;,
+                 &#39;shared_user&#39; : &#39;someone&#39;,
+                 &#39;create_new_tag&#39; : True}
+    request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    temp = createNewTodoList(request)
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_createNewTodoList3"><code class="name flex">
+<span>def <span class="ident">test_createNewTodoList3</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_createNewTodoList3(self):
+    sharedUser = User.objects.create_user(
+        username=&#39;share&#39;, email=&#39;share@…&#39;, password=&#39;top_secret&#39;)
+    sharedList = SharedList.objects.create(
+        user = sharedUser,
+        shared_list_id = &#34;&#34;
+    )
+    
+    test_data = {&#39;list_name&#39; : &#39;test&#39;,
+                 &#39;create_on&#39; : 1670292391,
+                 &#39;list_tag&#39; : &#39;test_tag&#39;,
+                 &#39;shared_user&#39; : &#39;share&#39;,
+                 &#39;create_new_tag&#39; : True}
+    request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    temp = createNewTodoList(request)
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_delete_template"><code class="name flex">
+<span>def <span class="ident">test_delete_template</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_delete_template(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    new_template = Template.objects.create(
+        title_text=&#34;test template&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=request.user.id
+    )
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    request.method = &#34;POST&#34;
+    response = delete_template(request, new_template.id)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, &#39;/templates&#39;)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_delete_template_not_logged_in"><code class="name flex">
+<span>def <span class="ident">test_delete_template_not_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_delete_template_not_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    new_template = Template.objects.create(
+        title_text=&#34;test template&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=request.user.id
+    )
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    request.method = &#34;POST&#34;
+    response = delete_template(request, new_template.id)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, &#39;/login&#39;)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_delete_template_undefined"><code class="name flex">
+<span>def <span class="ident">test_delete_template_undefined</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_delete_template_undefined(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    request.method = &#34;POST&#34;
+    response = delete_template(request, 9999)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, &#39;/login&#39;)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_delete_template_undefined_logged_in"><code class="name flex">
+<span>def <span class="ident">test_delete_template_undefined_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_delete_template_undefined_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    request.method = &#34;POST&#34;
+    response = delete_template(request, 9999)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, &#39;/templates&#39;)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_delete_todo_list"><code class="name flex">
+<span>def <span class="ident">test_delete_todo_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_delete_todo_list(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+    )
+    ListItem.objects.create(
+        item_name=&#34;test item&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=False,
+    )
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    response = delete_todo(request)
+    self.assertEqual(response.status_code, 302)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_delete_todo_list_not_logged_in"><code class="name flex">
+<span>def <span class="ident">test_delete_todo_list_not_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_delete_todo_list_not_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    response = delete_todo(request)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_getListItemById"><code class="name flex">
+<span>def <span class="ident">test_getListItemById</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_getListItemById(self):
+    todo = List.objects.create(
+        title_text=&#34;test list 3&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+    )
+    item = ListItem.objects.create(
+        item_name=&#34;test item 3&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=False,
+    )
+    test_data = {&#39;list_id&#39; : str(todo.id),
+                 &#39;list_item_name&#39;: &#39;test item 3&#39;,
+                 &#39;list_item_id&#39;: str(item.id)
+                 }
+    request = self.factory.post(f&#39;/todo/&#39;, data=test_data, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    temp = getListItemById(request)
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_getListItemByName"><code class="name flex">
+<span>def <span class="ident">test_getListItemByName</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_getListItemByName(self):
+    todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+    )
+    ListItem.objects.create(
+        item_name=&#34;test item&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=False,
+    )
+    test_data = {&#39;list_id&#39; : &#39;1&#39;,
+                 &#39;list_item_name&#39; : &#34;test item&#34;
+                 }
+    request = self.factory.post(f&#39;/todo/&#39;, data=test_data,
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    response = getListItemByName(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_getListTagsByUserid"><code class="name flex">
+<span>def <span class="ident">test_getListTagsByUserid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_getListTagsByUserid(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    ListTags.objects.create(
+        user_id_id = self.user.id,
+        tag_name = &#39;test&#39;,
+        created_on = timezone.now()
+    )
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    request.method = &#34;POST&#34;
+    response = getListTagsByUserid(request)
+    print(&#39;response:&#39;)
+    print(response)
+    self.assertIsNotNone(response)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_getListTagsByUserid_not_logged_in"><code class="name flex">
+<span>def <span class="ident">test_getListTagsByUserid_not_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_getListTagsByUserid_not_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    request.method = &#34;POST&#34;
+    response = getListTagsByUserid(request)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_index"><code class="name flex">
+<span>def <span class="ident">test_index</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_index(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_index_not_logged_in"><code class="name flex">
+<span>def <span class="ident">test_index_not_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_index_not_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    response = index(request)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_initial_config_state"><code class="name flex">
+<span>def <span class="ident">test_initial_config_state</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_initial_config_state(self):
+    # Initial config state check
+    self.assertFalse(config[&#34;darkMode&#34;])
+    self.assertEqual(config[&#34;primary_color&#34;], &#39;#0fa662&#39;)
+    self.assertEqual(config[&#34;hover_color&#34;], &#39;#0b8f54&#39;)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_login_request"><code class="name flex">
+<span>def <span class="ident">test_login_request</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_login_request(self):
+    test_data = {&#39;username&#39; : &#39;jacob&#39;,
+                 &#39;password&#39; : &#39;top_secret&#39;}
+    request = self.factory.post(f&#39;/login/&#39;, data=test_data, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    setattr(request, &#39;session&#39;, &#39;session&#39;)
+    setattr(request, &#39;_messages&#39;, FallbackStorage(request))
+    response = login_request(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_markListItem"><code class="name flex">
+<span>def <span class="ident">test_markListItem</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_markListItem(self):
+    todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=self.user.id,
+    )
+
+    listItem = ListItem.objects.create(
+        item_name=&#34;test item&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=False,
+    )
+
+    params = { 
+        &#39;list_id&#39;: todo.id,
+        &#39;list_item_name&#39;: listItem.item_name, 
+        &#34;create_on&#34;: 1670292391,
+        &#34;due_date&#34;: &#34;2023-01-01&#34;,
+        &#34;finish_on&#34;: 1670292392,
+        &#34;is_done&#34;: True,
+        &#34;list_item_id&#34;: listItem.id,
+        }
+
+    request = self.factory.post(f&#39;/todo/&#39;, data=params, 
+                            content_type=&#34;application/json&#34;)
+    request.user = self.user
+    temp = markListItem(request)
+    response = index(request)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_removeListItem"><code class="name flex">
+<span>def <span class="ident">test_removeListItem</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_removeListItem(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+
+    todo = List.objects.create(
+    title_text=&#34;test list&#34;,
+    created_on=timezone.now(),
+    updated_on=timezone.now(),
+    user_id_id=self.user.id,
+    )
+
+    ListItem.objects.create(
+        item_name=&#34;test item&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=False,
+    )
+
+    post = request.POST.copy()
+    # post[&#39;list_item_id&#39;] = 1
+    request.method = &#34;POST&#34;
+    request._body = json.dumps({ &#34;list_item_id&#34;: 1 }).encode(&#39;utf-8&#39;)
+    response = removeListItem(request)
+    print(response)
+    self.assertIsNotNone(response)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_template_display"><code class="name flex">
+<span>def <span class="ident">test_template_display</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_template_display(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    new_template = Template.objects.create(
+        title_text=&#34;test template&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=request.user.id
+    )
+    template_item = TemplateItem.objects.create(
+        item_text=&#34;test item&#34;,
+        created_on=timezone.now(),
+        template=new_template,
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now()
+    )
+    post = request.POST.copy()  # to make it mutable
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    response = template(request, 1)
+    self.assertEqual(response.status_code, 200)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_template_display_not_logged_in"><code class="name flex">
+<span>def <span class="ident">test_template_display_not_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_template_display_not_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    post = request.POST.copy()  # to make it mutable
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    response = template(request, 1)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_template_from_todo_function"><code class="name flex">
+<span>def <span class="ident">test_template_from_todo_function</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_template_from_todo_function(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    todo = List.objects.create(
+        title_text=&#34;test list&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=request.user.id,
+    )
+    item = ListItem.objects.create(
+        item_name=&#34;test item&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=True,
+    )
+    post = request.POST.copy()  # to make it mutable
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    response = template_from_todo(request)
+    self.assertEqual(response.status_code, 302)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_template_from_todo_function_not_logged_in"><code class="name flex">
+<span>def <span class="ident">test_template_from_todo_function_not_logged_in</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_template_from_todo_function_not_logged_in(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.anonymous_user
+    post = request.POST.copy()  # to make it mutable
+    post[&#39;todo&#39;] = 1
+    request.POST = post
+    response = template_from_todo(request)
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response.url, reverse(&#39;todo:login&#39;))</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_template_from_todo_redirect"><code class="name flex">
+<span>def <span class="ident">test_template_from_todo_redirect</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_template_from_todo_redirect(self):
+    client = self.client
+    response = client.get(reverse(&#39;todo:template_from_todo&#39;))
+    self.assertEquals(response.status_code, 302)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_todo_from_template"><code class="name flex">
+<span>def <span class="ident">test_todo_from_template</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_todo_from_template(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    new_template = Template.objects.create(
+        title_text=&#34;test template&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=request.user.id
+    )
+    template_item = TemplateItem.objects.create(
+        item_text=&#34;test item&#34;,
+        created_on=timezone.now(),
+        template=new_template,
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now()
+    )
+    
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    post[&#39;template&#39;] = new_template.id
+    request.POST = post
+    request.method = &#34;POST&#34;
+    response = todo_from_template(request)
+    self.assertEqual(response.status_code, 302)</code></pre>
+</details>
+</dd>
+<dt id="todo.tests.test_views.TestViews.test_updateListItem"><code class="name flex">
+<span>def <span class="ident">test_updateListItem</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_updateListItem(self):
+    request = self.factory.get(&#39;/todo/&#39;)
+    request.user = self.user
+    todo = List.objects.create(
+        title_text=&#34;test list 2&#34;,
+        created_on=timezone.now(),
+        updated_on=timezone.now(),
+        user_id_id=request.user.id,
+    )
+    item = ListItem.objects.create(
+        item_name=&#34;test item 2&#34;,
+        item_text=&#34;This is a test item on a test list&#34;,
+        created_on=timezone.now(),
+        finished_on=timezone.now(),
+        tag_color=&#34;#f9f9f9&#34;,
+        due_date=timezone.now(),
+        list=todo,
+        is_done=False,
+    )
+    post = request.POST.copy()
+    post[&#39;todo&#39;] = 1
+    post[&#39;note&#39;] = &#39;test note&#39;
+    request.POST = post
+    request.method = &#34;POST&#34;
+    response = updateListItem(request, item.id)
+    self.assertEqual(response.status_code, 302)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="todo.tests" href="index.html">todo.tests</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="todo.tests.test_views.TestViews" href="#todo.tests.test_views.TestViews">TestViews</a></code></h4>
+<ul class="">
+<li><code><a title="todo.tests.test_views.TestViews.setUp" href="#todo.tests.test_views.TestViews.setUp">setUp</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.testLogin" href="#todo.tests.test_views.TestViews.testLogin">testLogin</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.testLogin_with_invalid_credentials" href="#todo.tests.test_views.TestViews.testLogin_with_invalid_credentials">testLogin_with_invalid_credentials</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.testLogin_with_invalid_form" href="#todo.tests.test_views.TestViews.testLogin_with_invalid_form">testLogin_with_invalid_form</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.testSavingTodoList" href="#todo.tests.test_views.TestViews.testSavingTodoList">testSavingTodoList</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_NewUserForm" href="#todo.tests.test_views.TestViews.test_NewUserForm">test_NewUserForm</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_addNewListItem" href="#todo.tests.test_views.TestViews.test_addNewListItem">test_addNewListItem</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_config_change_index" href="#todo.tests.test_views.TestViews.test_config_change_index">test_config_change_index</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_config_change_login" href="#todo.tests.test_views.TestViews.test_config_change_login">test_config_change_login</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_config_change_template" href="#todo.tests.test_views.TestViews.test_config_change_template">test_config_change_template</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_createNewTodoList" href="#todo.tests.test_views.TestViews.test_createNewTodoList">test_createNewTodoList</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_createNewTodoList2" href="#todo.tests.test_views.TestViews.test_createNewTodoList2">test_createNewTodoList2</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_createNewTodoList3" href="#todo.tests.test_views.TestViews.test_createNewTodoList3">test_createNewTodoList3</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_delete_template" href="#todo.tests.test_views.TestViews.test_delete_template">test_delete_template</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_delete_template_not_logged_in" href="#todo.tests.test_views.TestViews.test_delete_template_not_logged_in">test_delete_template_not_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_delete_template_undefined" href="#todo.tests.test_views.TestViews.test_delete_template_undefined">test_delete_template_undefined</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_delete_template_undefined_logged_in" href="#todo.tests.test_views.TestViews.test_delete_template_undefined_logged_in">test_delete_template_undefined_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_delete_todo_list" href="#todo.tests.test_views.TestViews.test_delete_todo_list">test_delete_todo_list</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_delete_todo_list_not_logged_in" href="#todo.tests.test_views.TestViews.test_delete_todo_list_not_logged_in">test_delete_todo_list_not_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_getListItemById" href="#todo.tests.test_views.TestViews.test_getListItemById">test_getListItemById</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_getListItemByName" href="#todo.tests.test_views.TestViews.test_getListItemByName">test_getListItemByName</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_getListTagsByUserid" href="#todo.tests.test_views.TestViews.test_getListTagsByUserid">test_getListTagsByUserid</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_getListTagsByUserid_not_logged_in" href="#todo.tests.test_views.TestViews.test_getListTagsByUserid_not_logged_in">test_getListTagsByUserid_not_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_index" href="#todo.tests.test_views.TestViews.test_index">test_index</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_index_not_logged_in" href="#todo.tests.test_views.TestViews.test_index_not_logged_in">test_index_not_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_initial_config_state" href="#todo.tests.test_views.TestViews.test_initial_config_state">test_initial_config_state</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_login_request" href="#todo.tests.test_views.TestViews.test_login_request">test_login_request</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_markListItem" href="#todo.tests.test_views.TestViews.test_markListItem">test_markListItem</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_removeListItem" href="#todo.tests.test_views.TestViews.test_removeListItem">test_removeListItem</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_template_display" href="#todo.tests.test_views.TestViews.test_template_display">test_template_display</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_template_display_not_logged_in" href="#todo.tests.test_views.TestViews.test_template_display_not_logged_in">test_template_display_not_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_template_from_todo_function" href="#todo.tests.test_views.TestViews.test_template_from_todo_function">test_template_from_todo_function</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_template_from_todo_function_not_logged_in" href="#todo.tests.test_views.TestViews.test_template_from_todo_function_not_logged_in">test_template_from_todo_function_not_logged_in</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_template_from_todo_redirect" href="#todo.tests.test_views.TestViews.test_template_from_todo_redirect">test_template_from_todo_redirect</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_todo_from_template" href="#todo.tests.test_views.TestViews.test_todo_from_template">test_todo_from_template</a></code></li>
+<li><code><a title="todo.tests.test_views.TestViews.test_updateListItem" href="#todo.tests.test_views.TestViews.test_updateListItem">test_updateListItem</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

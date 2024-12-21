@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Done</title>
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link href="https://unpkg.com/tailwindcss@^2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    {% load todo_extras %}
+    <div class="flex h-screen">
+        <!-- Left Sidebar -->
+        <div class="w-72 bg-white shadow-lg">
+            <div class="p-6">
+                <!-- App Logo and Name -->
+                <div class="flex items-center space-x-2 mb-8">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                    <a href="/" class="text-2xl font-bold hover:text-gray-200"><h1>To-Done</h1></a>
+                </div>
+                <!-- New Todo List Section -->
+                <div class="space-y-4">
+                    <input type="text" 
+                           id="todoListInput" 
+                           placeholder="New Todo List" 
+                           class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    
+                    <div class="text-sm font-medium text-gray-700">Select a tag for your todo list</div>
+                    <select id="listTags" 
+                            onchange="toggleNewTagInput()" 
+                            class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        {% for tag in list_tags %}
+                        <option>{{ tag.tag_name }}</option>
+                        {% endfor %}
+                        <option selected>none</option>
+                        <option value="new">--create new tag--</option>
+                    </select>
+                    
+                    <input type="text" 
+                           id="newListTag" 
+                           placeholder="New List tag" 
+                           style="display: none;"
+                           class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    
+                    <button onclick="newTodoList()" 
+                            class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Add List
+                    </button>
+                </div>
+
+                <!-- Import/Export Section -->
+                <div class="space-y-4 pt-6 border-t border-gray-200">
+                    <a href="{% url 'todo:export_todo_csv' %}" 
+                       class="block w-full text-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Export Lists
+                    </a>
+                    
+                    <form method="POST" 
+                          enctype="multipart/form-data" 
+                          action="{% url 'todo:import_todo_csv' %}" 
+                          class="space-y-3">
+                        {% csrf_token %}
+                        <label for="csvFile" 
+                               class="block text-sm font-medium text-gray-700">
+                            Import from CSV File:
+                        </label>
+                        <input type="file" 
+                               id="csvFile" 
+                               accept=".csv"
+                               class="hidden" 
+                               onchange="importFromCSV()">
+                        <label for="csvFile" 
+                               class="inline-block px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer">
+                            Choose File
+                        </label>
+                        <button type="submit" 
+                                class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Import
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-auto">
+            <!-- Top Navigation Bar -->
+            <nav class="bg-white shadow-sm mb-8">
+                <div class="px-4 h-16 flex items-center justify-between">
+                    <ul class="flex space-x-4">
+    
+                        <li><a class="tabs hover:text-gray-200" href="/todo">Lists</a></li>
+                        <li>
+                          <a class="tabs hover:text-gray-200" href="/templates">Templates</a>
+                        </li>
+                    </ul>
+                    <a href="/logout" class="text-sm font-medium text-blue-600 hover:text-blue-500 flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="p-4">
+                <div class="mb-6">
+                    <h1 class="text-2xl font-semibold text-gray-900">Welcome, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}!</h1>
+                </div>
+                {% if latest_lists %}
+                    {% for list in latest_lists %}
+                    <div class="w-full max-w-5xl bg-white rounded-lg shadow-lg p-6 mb-6">
+                        <div class="flex flex-col h-full">
+                            <h2 class="flex items-center mb-4">
+                                <a href="/todo/{{ list.id }}" class="text-2xl font-semibold text-blue-600 hover:text-blue-500">
+                                    {{ list.title_text }}
+                                    {% if list.list_tag != "none" %}
+                                        <span class="ml-2 px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">{{ list.list_tag }}</span>
+                                    {% endif %}
+                                </a>
+                            </h2>
+                            <form class="mb-4 space-y-4" onsubmit="event.preventDefault(); newElement({{ list.id }});">
+                                <div class="space-y-4">
+                                    <input type="text" id="InputText_{{ list.id }}" placeholder="New Task" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    
+                                    <textarea id="InputNote_{{ list.id }}" placeholder="Add a note..." class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                    
+                                    <input type="text" id="InputTags_{{ list.id }}" placeholder="Add tags (comma separated)" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="InputDue_{{ list.id }}" class="block text-sm font-medium text-gray-700">Due Date</label>
+                                            <input type="date" id="InputDue_{{ list.id }}" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="InputPriority_{{ list.id }}" class="block text-sm font-medium text-gray-700">Priority</label>
+                                            <select id="InputPriority_{{ list.id }}" onchange="updatePriorityColor(this)" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                                <option value="HIGH" style="background-color: #fecaca">High</option>
+                                                <option value="MEDIUM" selected style="background-color: #fde68a">Medium</option>
+                                                <option value="LOW" style="background-color: #bbf7d0">Low</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        Add Item
+                                    </button>
+                                </div>
+                            </form>
+                            <ul id="{{ "List_"|addstr:list.id }}" class="space-y-3 flex-grow mt-4">
+                                {% for list_item in list.items %}
+                                    <li id="ListItem_{{ list_item.id }}" class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                                        <div class="flex-grow">
+                                            <div class="flex items-center space-x-3">
+                                                <span class="text-gray-900" style="{% if list_item.is_done %}text-decoration: line-through; color: #9CA3AF;{% endif %}">
+                                                    {{ list_item.item_name }}
+                                                </span>
+                                                <span class="w-2 h-2 rounded-full ml-2" style="background-color: {% if list_item.priority == 'HIGH' %}#fecaca{% elif list_item.priority == 'LOW' %}#bbf7d0{% else %}#fde68a{% endif %};"></span>
+                                            </div>
+                                            {% if list_item.item_text %}
+                                            <div class="text-gray-600 text-sm mt-1">
+                                                {{ list_item.item_text }}
+                                            </div>
+                                            {% endif %}
+                                            {% if list_item.tags %}
+                                            <div class="flex flex-wrap gap-2 mt-2">
+                                                {% for tag in list_item.tags %}
+                                                    <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">{{ tag }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                            <div class="text-gray-500 text-sm">
+                                                Due: {{ list_item.due_date|date:"M d, Y" }}
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="checkbox" 
+                                                   id="CheckBox_{{ list_item.id }}"
+                                                   {% if list_item.is_done %}checked{% endif %} 
+                                                   onclick="markItemDone(event, this, {{ list_item.id }})"
+                                                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <button class="edit-btn text-gray-600 hover:text-gray-900" 
+                                                    data-item-id="{{ list_item.id }}"
+                                                    onclick="editListItem({{ list_item.id }})">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900" onclick="deleteListItem({{ list_item.id }})">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="mt-6 flex justify-end space-x-4">
+                                <form action="/templates/new-from-todo" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="todo" id="todo-{{ list.id }}" value="{{ list.id }}">
+                                    <button class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                                        Save As Template
+                                    </button>
+                                </form>
+                                <form action="/delete-todo" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="todo" id="delete-todo-{{ list.id }}" value="{{ list.id }}">
+                                    <button class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                        Delete List
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <div class="text-center py-8">
+                        {% if current_filters.due_date or current_filters.priority %}
+                            <p class="text-lg text-gray-600">No lists match your current filters. Try adjusting your filters to see more results.</p>
+                        {% else %}
+                            <p class="text-lg text-gray-600">You don't have any todo lists yet! Click the "New List" button above to get started.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar Container -->
+            <div class="absolute top-16 right-4 w-72 mt-4">
+                <!-- Filter Sidebar -->
+                <div id="filter-sidebar" class="bg-white p-6 rounded-lg shadow-lg transform transition-transform duration-300 translate-x-full">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-medium">Filters</h3>
+                        <button onclick="toggleFilterSidebar()" class="text-gray-500 hover:text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="due_date_filter" class="block text-sm font-medium text-gray-700">Due Date</label>
+                            <input type="date" id="due_date_filter" 
+                                   value="{{ current_filters.due_date }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="priority_filter" class="block text-sm font-medium text-gray-700">Priority</label>
+                            <select id="priority_filter" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <option value="">All Priorities</option>
+                                <option value="HIGH" {% if current_filters.priority == 'HIGH' %}selected{% endif %}>High Priority</option>
+                                <option value="MEDIUM" {% if current_filters.priority == 'MEDIUM' %}selected{% endif %}>Medium Priority</option>
+                                <option value="LOW" {% if current_filters.priority == 'LOW' %}selected{% endif %}>Low Priority</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="tags_filter" class="block text-sm font-medium text-gray-700">Tag</label>
+                            <select id="tags_filter" name="tags_filter"
+                                    class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+                                <option value="">All Tags</option>
+                                <!-- Tags will be populated via JavaScript -->
+                            </select>
+                        </div>
+                        <div class="pt-4">
+                            <button onclick="applyFilters()" 
+                                    class="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Apply Filters
+                            </button>
+                            {% if current_filters.due_date or current_filters.priority %}
+                            <button onclick="clearFilters()" 
+                                    class="w-full mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                Clear Filters
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Sidebar -->
+                {% if latest_lists %}
+                <div id="edit-sidebar" class="bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out rounded-lg mt-4">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-semibold">Edit Task</h2>
+                            <button onclick="closeEditSidebar()" class="text-gray-500 hover:text-gray-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <form id="edit-form" class="space-y-4">
+                            <input type="hidden" id="edit-item-id">
+                            
+                            <div>
+                                <label for="edit-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                                <input type="text" id="edit-title" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <div>
+                                <label for="edit-note" class="block text-sm font-medium text-gray-700 mb-1">Note</label>
+                                <textarea id="edit-note" rows="3" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            </div>
+
+                            <div>
+                                <label for="edit-due-date" class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                                <input type="date" id="edit-due-date" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <div>
+                                <label for="edit-priority" class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                                <select id="edit-priority" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                        onchange="updatePriorityColor(this)">
+                                    <option value="MEDIUM" style="background-color: #fde68a">Medium</option>
+                                    <option value="HIGH" style="background-color: #fecaca">High</option>
+                                    <option value="LOW" style="background-color: #bbf7d0">Low</option>
+                                </select>
+                            </div>
+
+                            <div class="flex items-center">
+                                <input type="checkbox" id="edit-is-done" 
+                                       class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="edit-is-done" class="ml-2 block text-sm text-gray-700">Mark as completed</label>
+                            </div>
+
+                            <div class="pt-4">
+                                <button type="button" 
+                                        id="save-edit-button"
+                                        onclick="saveEditChanges()"
+                                        class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function editListItem(itemId) {
+        const filterSidebar = document.getElementById('filter-sidebar');
+        const editSidebar = document.getElementById('edit-sidebar');
+        
+        filterSidebar.style.transform = 'translateX(100%)';
+        editSidebar.style.transform = 'translateX(0)';
+        
+        document.getElementById('edit-item-id').value = itemId;
+        
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    const response = JSON.parse(this.responseText);
+                    document.getElementById('edit-title').value = response.item_name || '';
+                    document.getElementById('edit-note').value = response.item_text || '';
+                    document.getElementById('edit-due-date').value = response.due_date ? response.due_date.split('T')[0] : '';
+                    document.getElementById('edit-priority').value = response.priority || '';
+                    document.getElementById('edit-is-done').checked = response.is_done || false;
+                } else {
+                    console.error('Failed to fetch item details');
+                    closeEditSidebar();
+                }
+            }
+        };
+        
+        httpRequest.open('POST', '/getListItemById', true);
+        httpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        httpRequest.send(JSON.stringify({ list_item_id: itemId }));
+    }
+
+    function closeEditSidebar() {
+        const filterSidebar = document.getElementById('filter-sidebar');
+        const editSidebar = document.getElementById('edit-sidebar');
+        
+        editSidebar.style.transform = 'translateX(100%)';
+        filterSidebar.style.transform = 'translateX(0)';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => editListItem(btn.dataset.itemId));
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteListItem(btn.dataset.itemId));
+        });
+    });
+
+    function deleteListItem(itemId) {
+        if (!confirm('Are you sure you want to delete this task?')) {
+            return;
+        }
+
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    // Find and remove the list item from the DOM
+                    const listItem = document.querySelector(`#ListItem_${itemId}`).closest('li');
+                    
+                    listItem.remove();
+                } else {
+                    alert('Failed to delete task. Please try again.');
+                }
+            }
+        };
+
+        httpRequest.open('POST', '/removeListItem', true);
+        httpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        httpRequest.send(JSON.stringify({
+            list_item_id: itemId
+        }));
+    }
+
+    // Initialize color inputs
+    window.addEventListener('load', function() {
+        document.querySelectorAll('input[type="color"]').forEach(input => {
+            input.style.backgroundColor = input.value;
+        });
+    });
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i <close.length; i++) {
+      close[i].onclick = removeListItem
+    }
+
+    function removeListItem() {
+        // hide layout first
+        var div = this.parentElement
+        div.style.display = "none"
+
+        // send post request to delete the actual list item
+        var list_item_id = this.parentElement.getElementsByTagName("input")[0].id.toString().substring(9)
+        var httpRequest = new XMLHttpRequest()
+        httpRequest.open('POST', '/removeListItem');
+        httpRequest.setRequestHeader('Content-Type', "application/json;charset=UTF-8")
+        // {#var token = {% csrf_token %}#}
+        var params = {
+            "list_item_id": list_item_id
+        }
+        httpRequest.send(JSON.stringify(params))
+    }
+
+    // When click a list item, restore all othe
+    var list = document.getElementsByClassName("listItemsUnorderedList");
+    for(let i = 0; i < list.length; i++) {
+        list[i].addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                {#ev.target.classList.toggle('checked');#}
+                // restore all other checked list items
+                for(let k = 0; k < list.length; k++) {
+                    for (let j = 0; j < list[k].children.length; j++) {
+                        if (list[k].children[j].classList.contains('checked') && list[k].children[j] !== ev.target) {
+                            list[k].children[j].classList.remove('checked')
+                        }
+                    }
+                }
+                // show list item name and its note in the right-side bar
+
+                // TODO access database and get list and list item info
+                var item_name = ev.target.children[1].innerHTML
+                // ListItem_{id}, capture id start from index 9
+                var item_id = ev.target.getElementsByTagName("input")[0].id.toString().substring(9)
+
+                // this list id will look like List_{id}, so remove the first five letters
+                var list_id = ev.target.parentElement.id.substring(5)
+                var httpRequest = new XMLHttpRequest()
+                {#httpRequest.onreadystatechange = alertContents;#}
+                httpRequest.onreadystatechange = function() {
+                  if (this.readyState === 4 && this.status === 200) {
+                      console.log(this.responseText)
+                      var jsonResponse = JSON.parse(this.responseText)
+                      var rightsidebar = document.getElementById("rightsidebar")
+
+                      var list_title_li_node = rightsidebar.children[0]
+                      var list_text_node = list_title_li_node.children[0]
+                      list_text_node.innerHTML = "List name: " + jsonResponse['list_name']
+
+                      var item_title_li_node = rightsidebar.children[1]
+                      var item_text_node = item_title_li_node.children[0]
+                      item_text_node.innerHTML = "Item name: " + jsonResponse['item_name']
+
+                      var item_form_node = rightsidebar.children[3]
+                      var item_textarea_node = item_form_node.children[1]
+                      item_textarea_node.value = jsonResponse['item_text']
+
+                      // set the action url, append item id parameter to the end of url
+                      var text_form = rightsidebar.getElementsByTagName("form")[0]
+                      text_form.action = "/updateListItem/" + jsonResponse['item_id']
+                    {#document.getElementById('demoGet').innerHTML = this.responseText;#}
+                  }
+                };
+                httpRequest.open('POST', '/getListItemById');
+                httpRequest.setRequestHeader('Content-Type', "application/json;charset=UTF-8")
+                {#var token = {% csrf_token %}#}
+                var params = {
+                    "list_item_name": item_name,
+                    "list_id": list_id,
+                    "list_item_id": item_id,
+                }
+                httpRequest.send(JSON.stringify(params))
+
+
+                // Change the content of right-side bar
+                ev.target.classList.toggle('checked');
+                {#global_count++#}
+            }
+        }, false);
+    }
+
+    function markItemDone(event, checkbox, itemId) {
+        // Prevent the event from bubbling up
+        event.stopPropagation();
+        
+        // Store the current state before any changes
+        const currentState = checkbox.checked;
+        
+        // Disable the checkbox temporarily to prevent double clicks
+        checkbox.disabled = true;
+        
+        fetch('/markListItem', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'list_item_id': itemId,
+                'is_done': currentState
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok');
+        })
+        .then(data => {
+            if (data.success) {
+                // Update the text decoration based on the current state
+                const textSpan = checkbox.closest('li').querySelector('.text-gray-900');
+                if (currentState) {
+                    textSpan.style.textDecoration = 'line-through';
+                    textSpan.style.color = '#9CA3AF';
+                } else {
+                    textSpan.style.textDecoration = 'none';
+                    textSpan.style.color = '';
+                }
+            } else {
+                throw new Error(data.error || 'Failed to update item');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Revert visual state on error
+            checkbox.checked = !currentState;
+        })
+        .finally(() => {
+            // Re-enable the checkbox
+            checkbox.disabled = false;
+        });
+    }
+
+    // Remove any existing click listeners when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('input[type="checkbox"][id^="CheckBox_"]').forEach(function(checkbox) {
+            // Remove existing listeners
+            const newCheckbox = checkbox.cloneNode(true);
+            checkbox.parentNode.replaceChild(newCheckbox, checkbox);
+            
+            // Add new listener
+            newCheckbox.addEventListener('click', function(event) {
+                const itemId = this.id.split('_')[1];
+                markItemDone(event, this, itemId);
+            });
+        });
+    });
+
+    // The naming convention of List is "List_" + list.id
+    // The naming convention of ListItem is "ListItem_" + list_item.id
+    // Create a new list item when clicking on the "Add" button
+    function newElement(list_id, saved_to_database = true) {
+        var li = document.createElement("li");
+        li.id = `ListItem_${list_id}`;
+        var inputBox = document.getElementById("InputText_" + list_id.toString());
+        var inputValue = inputBox.value;
+        var inputNote = document.getElementById("InputNote_" + list_id.toString()).value;
+        var inputDue = document.getElementById("InputDue_" + list_id.toString()).value;
+        var inputPriority = document.getElementById("InputPriority_" + list_id.toString()).value || 'MEDIUM';
+        var inputTags = document.getElementById("InputTags_" + list_id.toString()).value;
+
+        if (inputValue === '') {
+            alert("You must write something!");
+            return;
+        }
+        else if (inputDue === '') {
+            alert("You must enter due date!");
+            return;
+        }
+
+        if(saved_to_database) {
+            var httpRequest = new XMLHttpRequest();
+            var today = new Date();
+            var create_on_timestamp = today.getTime() / 1000;
+            
+            const data = {
+                "list_id": list_id,
+                "list_item_name": inputValue,
+                "item_text": inputNote,
+                "due_date": inputDue,
+                "priority": inputPriority,
+                "tag_list": inputTags
+            };
+
+            httpRequest.onreadystatechange = function() {
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        try {
+                            var jsonResponse = JSON.parse(httpRequest.responseText);
+                            console.log("Response:", jsonResponse);  // Debug log
+                            
+                            if (jsonResponse.error) {
+                                alert("Error: " + jsonResponse.error);
+                                return;
+                            }
+                            
+                            if (jsonResponse.item_id !== -1) {
+                                // Create new list item
+                                var li = document.createElement("li");
+                                li.id = `ListItem_${jsonResponse.item_id}`;
+                                li.className = "flex items-center justify-between p-2 bg-gray-50 rounded-lg";
+                                
+                                // Create main content div
+                                var mainDiv = document.createElement("div");
+                                mainDiv.className = "flex-grow";
+                                
+                                // Create title and priority dot div
+                                var titleDiv = document.createElement("div");
+                                titleDiv.className = "flex items-center space-x-3";
+                                
+                                // Create title
+                                var titleSpan = document.createElement("span");
+                                titleSpan.className = "text-gray-900";
+                                titleSpan.textContent = inputValue;
+                                
+                                // Create priority dot
+                                var dotSpan = document.createElement("span");
+                                dotSpan.className = "w-2 h-2 rounded-full ml-2";
+                                switch(inputPriority) {
+                                    case 'HIGH':
+                                        dotSpan.style.backgroundColor = '#fecaca';
+                                        break;
+                                    case 'MEDIUM':
+                                        dotSpan.style.backgroundColor = '#fde68a';
+                                        break;
+                                    case 'LOW':
+                                        dotSpan.style.backgroundColor = '#bbf7d0';
+                                        break;
+                                }
+                                
+                                titleDiv.appendChild(titleSpan);
+                                titleDiv.appendChild(dotSpan);
+                                
+                                // Create metadata div
+                                var metadataDiv = document.createElement("div");
+                                metadataDiv.className = "text-gray-500 text-sm";
+                                
+                                // Add note if present
+                                if (inputNote) {
+                                    var noteDiv = document.createElement("div");
+                                    noteDiv.className = "text-gray-600 text-sm mt-1";
+                                    noteDiv.textContent = inputNote;
+                                    metadataDiv.appendChild(noteDiv);
+                                }
+                                
+                                // Add tags if present
+                                if (inputTags) {
+                                    var tagsDiv = document.createElement("div");
+                                    tagsDiv.className = "flex flex-wrap gap-2 mt-2";
+                                    var tags = inputTags.split(',').map(tag => tag.trim()).filter(tag => tag);
+                                    
+                                    tags.forEach(tag => {
+                                        var tagSpan = document.createElement("span");
+                                        tagSpan.className = "px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full";
+                                        tagSpan.textContent = tag;
+                                        tagsDiv.appendChild(tagSpan);
+                                    });
+                                    
+                                    metadataDiv.appendChild(tagsDiv);
+                                }
+                                
+                                // Add due date
+                                var dueDiv = document.createElement("div");
+                                var dueDate = new Date(inputDue);
+                                dueDiv.textContent = "Due: " + dueDate.toLocaleDateString('en-US', { 
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    year: 'numeric'
+                                });
+                                metadataDiv.appendChild(dueDiv);
+                                
+                                // Assemble the main content
+                                mainDiv.appendChild(titleDiv);
+                                mainDiv.appendChild(metadataDiv);
+                                
+                                // Create actions div
+                                var actionsDiv = document.createElement("div");
+                                actionsDiv.className = "flex items-center space-x-4";
+                                
+                                // Create checkbox
+                                var checkbox = document.createElement("input");
+                                checkbox.type = "checkbox";
+                                checkbox.id = `CheckBox_${jsonResponse.item_id}`;
+                                checkbox.className = "h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500";
+                                checkbox.addEventListener('click', function(event) {
+                                    markItemDone(event, this, jsonResponse.item_id);
+                                });
+                                
+                                // Create edit button
+                                var editButton = document.createElement("button");
+                                editButton.className = "edit-btn text-gray-600 hover:text-gray-900";
+                                editButton.setAttribute("data-item-id", jsonResponse.item_id);
+                                editButton.setAttribute("onclick", `editListItem(${jsonResponse.item_id})`);
+                                editButton.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>';
+                                
+                                // Create delete button
+                                var deleteButton = document.createElement("button");
+                                deleteButton.className = "text-red-600 hover:text-red-900";
+                                deleteButton.setAttribute("onclick", `deleteListItem(${jsonResponse.item_id})`);
+                                deleteButton.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>';
+                                
+                                actionsDiv.appendChild(checkbox);
+                                actionsDiv.appendChild(editButton);
+                                actionsDiv.appendChild(deleteButton);
+                                
+                                // Assemble the list item
+                                li.appendChild(mainDiv);
+                                li.appendChild(actionsDiv);
+                                
+                                // Add to list
+                                var ul = document.getElementById("List_" + list_id);
+                                ul.appendChild(li);
+                                
+                                // Clear input fields
+                                inputBox.value = "";
+                                document.getElementById("InputNote_" + list_id).value = "";
+                                document.getElementById("InputDue_" + list_id).value = "";
+                                document.getElementById("InputTags_" + list_id).value = "";
+                                document.getElementById("InputPriority_" + list_id).value = "MEDIUM";
+                                updatePriorityColor(document.getElementById("InputPriority_" + list_id));
+                            }
+                        } catch (e) {
+                            console.error("Error parsing response:", e);
+                            alert("Error creating task. Please try again.");
+                        }
+                    } else {
+                        console.error("Server returned status:", httpRequest.status);
+                        alert("Error creating task. Please try again.");
+                    }
+                }
+            };
+
+            httpRequest.open('POST', '/addNewListItem', true);
+            httpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            httpRequest.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            httpRequest.send(JSON.stringify(data));
+        }
+    }
+
+    function newTodoList() {
+        var listTitle = document.getElementById("todoListInput").value;
+        var listTag = document.getElementById("newListTag").value;
+        
+        if (listTitle.length === 0) {
+            alert("You must write something!");
+            return;
+        }
+        
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                    location.reload();
+                }
+            }
+        };
+        
+        httpRequest.open('POST', '/createNewTodoList');
+        httpRequest.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
+        var params = {
+            "list_title": listTitle,
+            "list_tag": listTag
+        };
+        httpRequest.send(JSON.stringify(params));
+        
+        document.getElementById("todoListInput").value = "";
+        document.getElementById("newListTag").value = "";
+    }
+
+    function toggleNewTagInput() {
+        var listTags = document.getElementById("listTags");
+        var newListTag = document.getElementById("newListTag");
+        
+        if (listTags.value === 'new') {
+            newListTag.style.display = 'block';
+            newListTag.focus();
+        } else {
+            newListTag.style.display = 'none';
+            newListTag.value = '';
+        }
+    }
+
+    // Initialize new tag input visibility
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleNewTagInput();
+    });
+
+    function importFromCSV(){
+        httpRequest.open('POST', '/import_todo_csv');
+    }
+
+    function updatePriorityColor(selectElement) {
+        const colors = {
+            'HIGH': '#fecaca',  // Light red
+            'MEDIUM': '#fde68a', // Light yellow
+            'LOW': '#bbf7d0'    // Light green
+        };
+        selectElement.style.backgroundColor = colors[selectElement.value] || '#fde68a'; // Default to medium priority color
+    }
+
+    // Initialize priority dropdowns with correct colors
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('select[id^="InputPriority_"]').forEach(select => {
+            updatePriorityColor(select);
+        });
+        const editPriority = document.getElementById('edit-priority');
+        if (editPriority) {
+            updatePriorityColor(editPriority);
+        }
+    });
+
+    // Initialize sidebars
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterSidebar = document.getElementById('filter-sidebar');
+        filterSidebar.style.transform = 'translateX(0)';
+    });
+
+    function applyFilters() {
+        const dueDate = document.getElementById('due_date_filter').value;
+        const priority = document.getElementById('priority_filter').value;
+        const tagsSelect = document.getElementById('tags_filter');
+        const tag = tagsSelect.value;
+        
+        const params = new URLSearchParams();
+        if (dueDate && dueDate.trim()) params.append('due_date', dueDate);
+        if (priority && priority.trim()) params.append('priority', priority);
+        if (tag && tag.trim()) params.append('tag', tag);
+        
+        const finalUrl = '/todo/filter?' + params.toString();
+        window.location.href = finalUrl;
+    }
+
+    function clearFilters() {
+        document.getElementById('due_date_filter').value = '';
+        document.getElementById('priority_filter').value = '';
+        document.getElementById('tags_filter').value = '';
+        window.location.href = '/todo/filter';
+    }
+
+    // Set initial filter values from URL parameters
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const dueDate = urlParams.get('due_date');
+        const priority = urlParams.get('priority');
+        const tag = urlParams.get('tag');
+        
+        if (dueDate) document.getElementById('due_date_filter').value = dueDate;
+        if (priority) document.getElementById('priority_filter').value = priority;
+        if (tag) document.getElementById('tags_filter').value = tag;
+    });
+
+    // Function to fetch and populate tags
+    function populateTagsFilter() {
+        fetch('/todo/tags')
+            .then(response => response.json())
+            .then(data => {
+                const tagsFilter = document.getElementById('tags_filter');
+                tagsFilter.innerHTML = '<option value="">All Tags</option>';
+                
+                data.tags.forEach(tag => {
+                    const option = document.createElement('option');
+                    option.value = tag;
+                    option.textContent = tag;
+                    tagsFilter.appendChild(option);
+                });
+
+                // Set initial value from URL if present
+                const urlParams = new URLSearchParams(window.location.search);
+                const tag = urlParams.get('tag');
+                if (tag) {
+                    tagsFilter.value = tag;
+                }
+            })
+            .catch(error => console.error('Error fetching tags:', error));
+    }
+
+    // Call populateTagsFilter when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        populateTagsFilter();
+    });
+
+    function saveEditChanges() {
+        const itemId = document.getElementById('edit-item-id').value;
+        const title = document.getElementById('edit-title').value;
+        const note = document.getElementById('edit-note').value;
+        const dueDate = document.getElementById('edit-due-date').value;
+        const priority = document.getElementById('edit-priority').value;
+        const isDone = document.getElementById('edit-is-done').checked;
+
+        const data = {
+            title: title,
+            note: note,
+            due_date: dueDate,
+            priority: priority || 'MEDIUM', // Default to MEDIUM if not selected
+            is_done: isDone
+        };
+
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    location.reload();
+                } else {
+                    console.error('Failed to update item:', this.responseText);
+                }
+            }
+        };
+
+        httpRequest.open('POST', `/updateListItem/${itemId}`, true);
+        httpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        httpRequest.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        httpRequest.send(JSON.stringify(data));
+    }
+    </script>
+    <style>
+    #edit-sidebar {
+        z-index: 1000;
+        border-left: 1px solid #e5e7eb;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 400px;
+        height: 100vh;
+        background-color: white;
+        padding: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    #edit-sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .edit-btn {
+        display: flex;
+        align-items: center;
+    }
+    
+    .close {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: #9CA3AF;
+    }
+    
+    .close:hover {
+        color: #EF4444;
+    }
+    </style>
+</body>
+</html>
